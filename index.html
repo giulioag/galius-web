@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galius — Ingeniería, optimización y auditorías ISO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0F2D46;
+    --ink-70:rgba(15,45,70,.7);
+    --ink-45:rgba(15,45,70,.45);
+    --blue:#2063F7;
+    --green:#54D17A;
+    --paper:#F2F4F7;
+    --white:#FFFFFF;
+    --line: rgba(15,45,70,.12);
+    --radius: 18px;
+    --grad: linear-gradient(120deg, var(--blue), var(--green));
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3, .display{
+    font-family:'Space Grotesk',sans-serif;
+    letter-spacing:-0.02em;
+    margin:0;
+  }
+  .mono{
+    font-family:'IBM Plex Mono',monospace;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    font-size:12px;
+  }
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  section{position:relative;}
+
+  /* ---------- Reveal ---------- */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:none;}
+
+  /* ---------- Nav ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(242,244,247,.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    height:72px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand-mark{width:30px;height:30px;}
+  .brand-name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;}
+  .nav-links{display:flex;align-items:center;gap:34px;}
+  .nav-links a{font-size:14px;font-weight:500;color:var(--ink-70);transition:color .2s;}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-cta{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--ink);color:var(--white);
+    padding:10px 18px;border-radius:100px;
+    font-size:14px;font-weight:600;
+    transition:transform .2s ease, background .2s ease;
+  }
+  .nav-cta:hover{background:var(--blue);transform:translateY(-1px);}
+  .burger{display:none;background:none;border:0;cursor:pointer;padding:8px;}
+  .burger span{display:block;width:22px;height:2px;background:var(--ink);margin:5px 0;}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:88px 0 70px;overflow:hidden;}
+  .hero-grid{
+    display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;
+  }
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:7px 14px;border-radius:100px;
+    border:1px solid var(--line);background:var(--white);
+    color:var(--ink-70);margin-bottom:26px;
+  }
+  .badge-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(84,209,122,.25);}
+  .hero h1{
+    font-size:clamp(38px,6vw,66px);
+    line-height:1.02;
+    font-weight:700;
+  }
+  .hero h1 em{
+    font-style:normal;
+    background:var(--grad);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p.lead{
+    font-size:18px;line-height:1.6;color:var(--ink-70);
+    max-width:520px;margin:22px 0 34px;
+  }
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--ink);color:var(--white);
+    padding:15px 26px;border-radius:100px;font-weight:600;font-size:15px;
+    display:inline-flex;align-items:center;gap:10px;
+    transition:transform .2s ease, background .2s ease;
+  }
+  .btn-primary:hover{background:var(--blue);transform:translateY(-2px);}
+  .btn-ghost{
+    padding:15px 22px;border-radius:100px;font-weight:600;font-size:15px;
+    border:1px solid var(--line);color:var(--ink);
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .btn-ghost:hover{border-color:var(--ink);background:var(--white);}
+
+  .hero-mark{position:relative;display:flex;justify-content:center;align-items:center;}
+  .hero-mark svg{width:min(360px,90%);height:auto;}
+  #hero-path{
+    stroke-dasharray:900;stroke-dashoffset:900;
+    animation:draw 2.2s cubic-bezier(.65,0,.35,1) forwards .3s;
+  }
+  #hero-arrow{opacity:0;animation:fadeUp .6s ease forwards 2.1s;}
+  @keyframes draw{to{stroke-dashoffset:0;}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+  .hero-stats{
+    display:flex;gap:34px;margin-top:56px;padding-top:28px;border-top:1px solid var(--line);
+  }
+  .hero-stats div .mono{color:var(--ink-45);margin-bottom:6px;}
+  .hero-stats div strong{font-family:'Space Grotesk',sans-serif;font-size:22px;}
+
+  /* ---------- Manifesto (dark) ---------- */
+  .manifesto{background:var(--ink);color:var(--white);padding:110px 0;}
+  .manifesto .mono{color:rgba(255,255,255,.5);margin-bottom:22px;}
+  .manifesto h2{
+    font-size:clamp(28px,4.2vw,44px);
+    line-height:1.28;font-weight:600;max-width:900px;
+    color:rgba(255,255,255,.92);
+  }
+  .manifesto h2 .hl{color:var(--green);}
+  .manifesto h2 .hl2{color:var(--blue);}
+  .manifesto-foot{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    flex-wrap:wrap;gap:24px;margin-top:52px;
+  }
+  .manifesto-foot p{color:rgba(255,255,255,.55);font-size:15px;max-width:380px;line-height:1.6;}
+
+  /* ---------- Section heads ---------- */
+  .sec-head{max-width:640px;margin-bottom:56px;}
+  .sec-head .mono{color:var(--blue);margin-bottom:14px;}
+  .sec-head h2{font-size:clamp(26px,3.6vw,38px);font-weight:600;}
+  .sec-head p{color:var(--ink-70);font-size:16px;margin-top:14px;line-height:1.6;}
+
+  /* ---------- Services ---------- */
+  .services{padding:110px 0;}
+  .service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .service-card{
+    background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+    padding:32px 28px;transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .service-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(15,45,70,.08);border-color:transparent;}
+  .service-tag{
+    display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;
+    padding:5px 10px;border-radius:6px;margin-bottom:20px;letter-spacing:.06em;
+  }
+  .tag-ing{background:rgba(32,99,247,.1);color:var(--blue);}
+  .tag-opt{background:rgba(84,209,122,.14);color:#2f8a52;}
+  .tag-iso{background:rgba(15,45,70,.08);color:var(--ink);}
+  .service-card h3{font-size:21px;font-weight:600;margin-bottom:12px;}
+  .service-card p{color:var(--ink-70);font-size:15px;line-height:1.6;margin:0;}
+
+  /* ---------- Pillars ribbon ---------- */
+  .pillars{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:56px 0;}
+  .pillar-row{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .pillar{display:flex;align-items:center;gap:16px;}
+  .pillar-icon{
+    width:46px;height:46px;border-radius:50%;flex:none;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--paper);
+  }
+  .pillar-icon svg{width:22px;height:22px;}
+  .pillar strong{display:block;font-size:15px;font-weight:600;}
+  .pillar span{display:block;font-size:13px;color:var(--ink-45);margin-top:2px;}
+  .spin{animation:spin 6s linear infinite;transform-origin:center;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  /* ---------- Process ---------- */
+  .process{padding:110px 0;}
+  .process-list{border-top:1px solid var(--line);}
+  .process-item{
+    display:grid;grid-template-columns:90px 1fr 1fr;gap:24px;
+    padding:34px 0;border-bottom:1px solid var(--line);align-items:baseline;
+  }
+  .process-item .mono{color:var(--ink-45);font-size:13px;}
+  .process-item h3{font-size:20px;font-weight:600;}
+  .process-item p{color:var(--ink-70);font-size:15px;line-height:1.6;margin:0;}
+
+  /* ---------- Why grid ---------- */
+  .why{padding:0 0 110px;}
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .why-card{
+    padding:30px;border-radius:var(--radius);background:var(--white);border:1px solid var(--line);
+  }
+  .why-card .num{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--blue);margin-bottom:14px;display:block;}
+  .why-card h3{font-size:18px;font-weight:600;margin-bottom:8px;}
+  .why-card p{color:var(--ink-70);font-size:14.5px;line-height:1.6;margin:0;}
+
+  /* ---------- CTA ---------- */
+  .cta{background:var(--ink);color:var(--white);padding:100px 0;position:relative;overflow:hidden;}
+  .cta-inner{position:relative;z-index:1;text-align:center;max-width:640px;margin:0 auto;}
+  .cta .mono{color:var(--green);margin-bottom:20px;}
+  .cta h2{font-size:clamp(30px,5vw,48px);font-weight:700;color:var(--white);}
+  .cta p{color:rgba(255,255,255,.6);font-size:16px;margin:20px 0 34px;line-height:1.6;}
+  .cta-ctas{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
+  .btn-light{
+    background:var(--white);color:var(--ink);padding:15px 26px;border-radius:100px;font-weight:600;font-size:15px;
+    transition:transform .2s ease;
+  }
+  .btn-light:hover{transform:translateY(-2px);}
+  .btn-outline-light{
+    padding:15px 24px;border-radius:100px;font-weight:600;font-size:15px;
+    border:1px solid rgba(255,255,255,.3);color:var(--white);
+    transition:border-color .2s ease;
+  }
+  .btn-outline-light:hover{border-color:#fff;}
+  .cta-glow{
+    position:absolute;inset:-20% -20% auto auto;width:520px;height:520px;border-radius:50%;
+    background:radial-gradient(circle,rgba(32,99,247,.35),transparent 70%);filter:blur(20px);
+  }
+  .cta-glow2{
+    position:absolute;inset:auto auto -30% -10%;width:480px;height:480px;border-radius:50%;
+    background:radial-gradient(circle,rgba(84,209,122,.3),transparent 70%);filter:blur(20px);
+  }
+
+  /* ---------- Footer ---------- */
+  footer{padding:44px 0;}
+  .foot-row{
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+    border-top:1px solid var(--line);padding-top:30px;
+  }
+  .foot-brand{display:flex;align-items:center;gap:9px;}
+  .foot-brand svg{width:22px;height:22px;}
+  .foot-brand span{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;}
+  .foot-links{display:flex;gap:26px;}
+  .foot-links a{font-size:13px;color:var(--ink-70);}
+  .foot-links a:hover{color:var(--ink);}
+  .foot-note{font-size:13px;color:var(--ink-45);}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:860px){
+    .nav-links{position:fixed;top:72px;left:0;right:0;background:var(--paper);
+      flex-direction:column;align-items:flex-start;gap:0;
+      border-bottom:1px solid var(--line);
+      max-height:0;overflow:hidden;transition:max-height .35s ease;
+    }
+    .nav-links.open{max-height:320px;}
+    .nav-links a, .nav-links .nav-cta{width:100%;padding:16px 24px;border-bottom:1px solid var(--line);border-radius:0;}
+    .burger{display:block;}
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-mark{order:-1;margin-bottom:10px;}
+    .hero-mark svg{width:200px;}
+    .hero-stats{flex-wrap:wrap;row-gap:20px;}
+    .service-grid,.pillar-row,.why-grid{grid-template-columns:1fr;}
+    .process-item{grid-template-columns:1fr;gap:8px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="#top" class="brand">
+      <svg class="brand-mark" viewBox="0 0 100 100" fill="none">
+        <defs><linearGradient id="gNav" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2063F7"/><stop offset="1" stop-color="#54D17A"/></linearGradient></defs>
+        <path d="M62 20C50 12 33 15 25 27C17 39 20 56 32 64C40 69.5 50 70 58 66" stroke="url(#gNav)" stroke-width="9" stroke-linecap="round" fill="none"/>
+        <path d="M58 66L74 66M74 66L67 59M74 66L67 73" stroke="#54D17A" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <span class="brand-name">galius</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#servicios">Servicios</a>
+      <a href="#enfoque">Enfoque</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#contacto" class="nav-cta">Hablemos →</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="badge"><span class="badge-dot"></span><span class="mono" style="letter-spacing:.1em;">Nueva consultora · Buenos Aires, AR</span></div>
+        <h1>Ingeniería con <em>mentalidad joven.</em></h1>
+        <p class="lead">Optimizamos procesos y llevamos empresas a estándares ISO — sin la solemnidad de siempre. Galius nace para demostrar que la calidad y el cumplimiento también pueden ser rápidos, claros y actuales.</p>
+        <div class="hero-ctas">
+          <a href="#contacto" class="btn-primary">Agendar una llamada →</a>
+          <a href="#servicios" class="btn-ghost">Ver servicios</a>
+        </div>
+        <div class="hero-stats">
+          <div><div class="mono">Enfoque</div><strong>Ingeniería + ISO</strong></div>
+          <div><div class="mono">Filosofía</div><strong>Mejora continua</strong></div>
+          <div><div class="mono">Base</div><strong>Argentina</strong></div>
+        </div>
+      </div>
+      <div class="hero-mark">
+        <svg viewBox="0 0 200 200" fill="none">
+          <defs><linearGradient id="gHero" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2063F7"/><stop offset="1" stop-color="#54D17A"/></linearGradient></defs>
+          <path id="hero-path" d="M128 40C102 22 64 28 46 54C28 80 34 118 60 136C78 148.5 100 150 118 141" stroke="url(#gHero)" stroke-width="15" stroke-linecap="round" fill="none"/>
+          <g id="hero-arrow">
+            <path d="M118 141L154 141M154 141L138 125M154 141L138 157" stroke="#54D17A" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="manifesto reveal">
+    <div class="wrap">
+      <div class="mono">Manifiesto</div>
+      <h2>No heredamos la forma en la que se hacían las cosas. <span class="hl">La estamos rediseñando.</span> Crecimos viendo cómo la ingeniería y las auditorías de calidad se manejaban con planillas viejas y procesos eternos. <span class="hl2">Galius existe para cambiar eso</span>: la misma exigencia técnica, con la velocidad y la claridad de una generación que optimiza todo.</h2>
+      <div class="manifesto-foot">
+        <p>Somos una consultora recién nacida, con muchas ganas y cero miedo a hacer las cosas distinto desde el día uno.</p>
+        <p>Ingeniería · Optimización de procesos · Auditorías ISO</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="services" id="servicios">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="mono">Qué hacemos</div>
+        <h2>Tres formas de hacer tu empresa más sólida.</h2>
+        <p>Cada servicio se piensa a medida del negocio: nada de plantillas genéricas ni informes que nadie lee.</p>
+      </div>
+      <div class="service-grid">
+        <div class="service-card reveal">
+          <span class="service-tag tag-ing">ING</span>
+          <h3>Ingeniería</h3>
+          <p>Diseño y desarrollo de soluciones técnicas a medida, pensadas para escalar con tu operación, no para frenarla.</p>
+        </div>
+        <div class="service-card reveal">
+          <span class="service-tag tag-opt">OPT</span>
+          <h3>Optimización de procesos</h3>
+          <p>Relevamos, medimos y rediseñamos flujos de trabajo reales para ganar tiempo, reducir costos y eliminar fricción.</p>
+        </div>
+        <div class="service-card reveal">
+          <span class="service-tag tag-iso">ISO</span>
+          <h3>Auditorías ISO</h3>
+          <p>Acompañamiento integral para alcanzar y sostener certificaciones internacionales de calidad, sin vueltas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILARES -->
+  <section class="pillars">
+    <div class="wrap pillar-row">
+      <div class="pillar reveal">
+        <div class="pillar-icon">
+          <svg class="spin" viewBox="0 0 24 24" fill="none"><path d="M20 12a8 8 0 1 1-2.34-5.66" stroke="#2063F7" stroke-width="2" stroke-linecap="round"/><path d="M20 4v5h-5" stroke="#2063F7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div><strong>Mejora continua</strong><span>Iteramos siempre, no una vez al año</span></div>
+      </div>
+      <div class="pillar reveal">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M3 17l6-6 4 4 8-8" stroke="#54D17A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 7h6v6" stroke="#54D17A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div><strong>Optimización</strong><span>Cada proceso, medido y mejorado</span></div>
+      </div>
+      <div class="pillar reveal">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#0F2D46" stroke-width="2"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#0F2D46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div><strong>Calidad y cumplimiento</strong><span>Estándares internacionales, reales</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESO -->
+  <section class="process" id="proceso">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="mono">Cómo trabajamos</div>
+        <h2>Un proceso claro, de punta a punta.</h2>
+        <p>Sin caja negra: en cada etapa sabés exactamente dónde está tu proyecto.</p>
+      </div>
+      <div class="process-list">
+        <div class="process-item reveal">
+          <div class="mono">01 / Diagnóstico</div>
+          <h3>Entendemos tu operación</h3>
+          <p>Relevamos procesos, sistemas y equipos para identificar cuellos de botella y oportunidades reales.</p>
+        </div>
+        <div class="process-item reveal">
+          <div class="mono">02 / Diseño</div>
+          <h3>Armamos el plan técnico</h3>
+          <p>Proponemos la solución de ingeniería u optimización, con alcance, tiempos y resultados esperados claros.</p>
+        </div>
+        <div class="process-item reveal">
+          <div class="mono">03 / Implementación</div>
+          <h3>Ejecutamos con seguimiento</h3>
+          <p>Ponemos en marcha los cambios acompañando a tu equipo en cada paso, sin fricciones ni sorpresas.</p>
+        </div>
+        <div class="process-item reveal">
+          <div class="mono">04 / Certificación</div>
+          <h3>Auditamos y sostenemos</h3>
+          <p>Preparamos y acompañamos la auditoría ISO, y dejamos el sistema listo para mantenerse en el tiempo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POR QUÉ -->
+  <section class="why" id="enfoque">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="mono">Por qué Galius</div>
+        <h2>La misma rigurosidad técnica, otra manera de trabajar.</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-card reveal">
+          <span class="num">→</span>
+          <h3>Mirada fresca</h3>
+          <p>Vemos la ingeniería y el cumplimiento normativo sin los vicios de "siempre se hizo así".</p>
+        </div>
+        <div class="why-card reveal">
+          <span class="num">→</span>
+          <h3>Ejecución ágil</h3>
+          <p>Menos reuniones, más avance concreto. Trabajamos por objetivos, no por horas facturadas.</p>
+        </div>
+        <div class="why-card reveal">
+          <span class="num">→</span>
+          <h3>Comunicación directa</h3>
+          <p>Hablamos claro, sin informes de 40 páginas que nadie termina de leer.</p>
+        </div>
+        <div class="why-card reveal">
+          <span class="num">→</span>
+          <h3>Foco en resultados</h3>
+          <p>Cada proyecto se mide en tiempo ganado, costos reducidos o certificación obtenida.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="contacto">
+    <div class="cta-glow"></div>
+    <div class="cta-glow2"></div>
+    <div class="wrap cta-inner">
+      <div class="mono">Empecemos</div>
+      <h2>¿Hablamos de tu próximo proyecto?</h2>
+      <p>Estamos armando el equipo y las primeras alianzas. Si tu empresa necesita ingeniería, optimizar procesos o encarar una certificación ISO, escribinos — sé de los primeros en sumarte a Galius.</p>
+      <div class="cta-ctas">
+        <a href="mailto:contacto@galius.com.ar" class="btn-light">contacto@galius.com.ar</a>
+        <a href="https://linkedin.com" class="btn-outline-light" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <a href="#top" class="foot-brand">
+      <svg viewBox="0 0 100 100" fill="none">
+        <defs><linearGradient id="gFoot" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2063F7"/><stop offset="1" stop-color="#54D17A"/></linearGradient></defs>
+        <path d="M62 20C50 12 33 15 25 27C17 39 20 56 32 64C40 69.5 50 70 58 66" stroke="url(#gFoot)" stroke-width="9" stroke-linecap="round" fill="none"/>
+        <path d="M58 66L74 66M74 66L67 59M74 66L67 73" stroke="#54D17A" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <span>galius</span>
+    </a>
+    <div class="foot-links">
+      <a href="#servicios">Servicios</a>
+      <a href="#enfoque">Enfoque</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <div class="foot-note">© 2026 Galius · Ingeniería, Optimización y Auditorías ISO</div>
+  </div>
+</footer>
+
+<script>
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
