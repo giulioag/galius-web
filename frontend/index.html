@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galius — Industrial Intelligence. Compliance Simplified.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0F2D46;
+    --ink-70:rgba(15,45,70,.7);
+    --ink-45:rgba(15,45,70,.45);
+    --blue:#2063F7;
+    --cyan:#18A6FF;
+    --green:#12D66A;
+    --paper:#F2F4F7;
+    --white:#FFFFFF;
+    --line: rgba(15,45,70,.12);
+    --radius: 18px;
+    --grad: linear-gradient(115deg, var(--blue) 0%, var(--cyan) 55%, var(--green) 100%);
+    --deep:#070E1C;
+    --deep-2:#0C1A30;
+    --deep-line: rgba(255,255,255,.1);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;letter-spacing:-0.02em;margin:0;}
+  .mono{font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.12em;font-size:12px;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  section{position:relative;}
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:none;}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+
+  /* ---- Header (transparent over dark hero, solid elsewhere via scroll class) ---- */
+  header{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .25s ease, border-color .25s ease;border-bottom:1px solid transparent;}
+  header.solid{background:rgba(7,14,28,.85);backdrop-filter:blur(10px);border-color:var(--deep-line);}
+  nav.wrap{display:flex;align-items:center;justify-content:space-between;height:76px;}
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand-mark{width:28px;height:28px;}
+  .brand-name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:var(--white);}
+  .nav-links{display:flex;align-items:center;gap:32px;}
+  .nav-links a{font-size:14px;font-weight:500;color:rgba(255,255,255,.65);transition:color .2s;}
+  .nav-links a:hover{color:var(--white);}
+  .nav-cta{background:var(--white);color:var(--deep);padding:10px 20px;border-radius:100px;font-size:14px;font-weight:600;transition:transform .2s ease;}
+  .nav-cta:hover{transform:translateY(-1px);}
+
+  /* ---- Hero (dark, Pomelo-style) ---- */
+  .hero{
+    background:
+      radial-gradient(600px 400px at 12% -10%, rgba(32,99,247,.35), transparent 60%),
+      radial-gradient(560px 420px at 92% 8%, rgba(18,214,106,.22), transparent 55%),
+      linear-gradient(180deg, var(--deep) 0%, var(--deep-2) 100%);
+    color:var(--white);
+    padding:190px 0 130px;
+  }
+  .hero-inner{max-width:800px;}
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:100px;
+    border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);
+    color:rgba(255,255,255,.65);margin-bottom:28px;
+  }
+  .badge-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(18,214,106,.25);}
+  .hero h1{font-size:clamp(38px,6vw,68px);line-height:1.03;font-weight:700;}
+  .hero .lead{font-size:19px;line-height:1.6;color:rgba(255,255,255,.62);max-width:600px;margin:26px 0 38px;}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn-primary{background:var(--white);color:var(--deep);padding:16px 28px;border-radius:100px;font-weight:600;font-size:15px;transition:transform .2s ease;}
+  .btn-primary:hover{transform:translateY(-2px);}
+  .btn-ghost-dark{padding:16px 24px;border-radius:100px;font-weight:600;font-size:15px;border:1px solid rgba(255,255,255,.2);color:var(--white);transition:border-color .2s ease;}
+  .btn-ghost-dark:hover{border-color:rgba(255,255,255,.5);}
+
+  /* ---- Problem (light) ---- */
+  .problem{padding:110px 0;}
+  .problem-head{max-width:640px;margin-bottom:52px;}
+  .problem-head .mono{color:var(--blue);margin-bottom:14px;}
+  .problem-head h2{font-size:clamp(26px,3.6vw,40px);font-weight:600;}
+  .problem-head p{color:var(--ink-70);font-size:16px;margin-top:16px;line-height:1.6;}
+  .scatter{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:56px;}
+  .scatter span{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-45);
+    border:1px dashed var(--line);padding:9px 14px;border-radius:9px;
+    text-decoration:line-through;text-decoration-color:rgba(15,45,70,.25);
+  }
+  .impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .impact-card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:24px;}
+  .impact-card h4{font-size:15.5px;font-weight:600;margin-bottom:6px;}
+  .impact-card p{font-size:13.5px;color:var(--ink-70);margin:0;line-height:1.5;}
+
+  /* ---- Módulos (dark) ---- */
+  .modules{background:var(--deep);color:var(--white);padding:110px 0;}
+  .modules-head{max-width:640px;margin-bottom:52px;}
+  .modules-head .mono{color:var(--green);margin-bottom:14px;}
+  .modules-head h2{font-size:clamp(26px,3.6vw,40px);font-weight:600;color:var(--white);}
+  .modules-head p{color:rgba(255,255,255,.55);font-size:16px;margin-top:16px;line-height:1.6;}
+  .mod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .mod-card{background:rgba(255,255,255,.04);border:1px solid var(--deep-line);border-radius:16px;padding:26px 22px;}
+  .mod-card .mod-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+  .mod-card h3{font-size:17px;font-weight:600;margin-bottom:12px;color:var(--white);}
+  .mod-card ul{margin:0;padding:0;list-style:none;}
+  .mod-card li{font-size:13px;color:rgba(255,255,255,.55);padding:5px 0;border-top:1px solid var(--deep-line);}
+  .mod-card li:first-child{border-top:none;}
+
+  /* ---- Evolución (light, timeline) ---- */
+  .evo{padding:110px 0;}
+  .evo-head{max-width:640px;margin-bottom:52px;}
+  .evo-head .mono{color:var(--blue);margin-bottom:14px;}
+  .evo-head h2{font-size:clamp(26px,3.6vw,40px);font-weight:600;}
+  .evo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .evo-card{border-radius:14px;padding:24px 20px;border:1px solid var(--line);position:relative;}
+  .evo-card.now{background:var(--ink);color:var(--white);border-color:var(--ink);}
+  .evo-card .mono{font-size:11px;margin-bottom:14px;display:block;}
+  .evo-card.now .mono{color:var(--green);}
+  .evo-card:not(.now) .mono{color:var(--ink-45);}
+  .evo-card h4{font-size:16px;font-weight:600;margin-bottom:10px;}
+  .evo-card p{font-size:13px;line-height:1.5;margin:0;}
+  .evo-card:not(.now) p{color:var(--ink-70);}
+  .evo-card.now p{color:rgba(255,255,255,.7);}
+  .evo-ex{margin-top:12px;padding-top:12px;border-top:1px dashed;font-size:12px;font-style:italic;}
+  .evo-card:not(.now) .evo-ex{border-color:var(--line);color:var(--ink-45);}
+  .evo-card.now .evo-ex{border-color:rgba(255,255,255,.15);color:rgba(255,255,255,.5);}
+
+  /* ---- Mercado + ventaja ---- */
+  .market{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:110px 0;}
+  .market .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
+  .market h2{font-size:clamp(24px,3.2vw,34px);font-weight:600;margin-bottom:20px;}
+  .market-col .mono{color:var(--blue);margin-bottom:12px;}
+  .market-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+  .market-tags span{font-size:13px;background:var(--paper);border:1px solid var(--line);padding:6px 12px;border-radius:8px;color:var(--ink-70);}
+  .market-size{font-family:'Space Grotesk',sans-serif;font-size:14px;color:var(--ink-45);margin-top:16px;}
+
+  .advantage{background:var(--ink);color:var(--white);padding:90px 0;text-align:center;}
+  .advantage blockquote{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,3vw,32px);font-weight:600;line-height:1.35;max-width:760px;margin:0 auto;}
+  .advantage blockquote b{color:var(--green);font-weight:600;}
+  .advantage .mono{color:rgba(255,255,255,.5);margin-bottom:22px;}
+
+  /* ---- Modelo de negocio ---- */
+  .pricing{padding:110px 0;}
+  .pricing-head{max-width:640px;margin-bottom:48px;}
+  .pricing-head .mono{color:var(--green);margin-bottom:14px;}
+  .pricing-head h2{font-size:clamp(26px,3.6vw,38px);font-weight:600;}
+  .pricing-head p{color:var(--ink-70);font-size:16px;margin-top:14px;line-height:1.6;}
+  .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .price-card{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:34px;}
+  .price-card .mono{color:var(--ink-45);margin-bottom:14px;}
+  .price-card .amount{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700;margin-bottom:10px;}
+  .price-card .amount span{font-size:15px;color:var(--ink-45);font-weight:500;}
+  .price-card p{font-size:14.5px;color:var(--ink-70);line-height:1.6;margin:0;}
+
+  /* ---- Objetivo largo plazo ---- */
+  .longterm{background:var(--deep);color:var(--white);padding:100px 0;text-align:center;}
+  .longterm .mono{color:var(--blue);margin-bottom:20px;}
+  .longterm h2{font-size:clamp(26px,4vw,40px);font-weight:600;max-width:760px;margin:0 auto;line-height:1.3;}
+  .longterm h2 b{color:var(--green);font-weight:600;}
+
+  /* ---- CTA final ---- */
+  .cta{padding:110px 0;text-align:center;}
+  .cta .mono{color:var(--blue);margin-bottom:18px;}
+  .cta h2{font-size:clamp(28px,4.4vw,42px);font-weight:700;max-width:640px;margin:0 auto;}
+  .cta-ctas{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:32px;}
+  .btn-dark{background:var(--ink);color:var(--white);padding:16px 28px;border-radius:100px;font-weight:600;font-size:15px;transition:transform .2s ease, background .2s ease;}
+  .btn-dark:hover{background:var(--blue);transform:translateY(-2px);}
+  .btn-outline{padding:16px 24px;border-radius:100px;font-weight:600;font-size:15px;border:1px solid var(--line);color:var(--ink);}
+
+  footer{padding:44px 0;background:var(--white);border-top:1px solid var(--line);}
+  .foot-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+  .foot-brand{display:flex;align-items:center;gap:9px;}
+  .foot-brand span{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;}
+  .foot-note{font-size:13px;color:var(--ink-45);}
+
+  @media (max-width:860px){
+    .nav-links{display:none;}
+    .hero{padding:150px 0 90px;}
+    .impact-grid, .mod-grid, .evo-grid{grid-template-columns:1fr 1fr;}
+    .market .wrap{grid-template-columns:1fr;gap:40px;}
+    .price-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:560px){
+    .impact-grid, .mod-grid, .evo-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header id="site-header">
+  <nav class="wrap">
+    <a href="#top" class="brand">
+      <img class="brand-mark" src="assets/logo.svg" alt="Galius" width="28" height="28">
+      <span class="brand-name">galius</span>
+    </a>
+    <div class="nav-links">
+      <a href="#producto">Plataforma</a>
+      <a href="#evolucion">Roadmap</a>
+      <a href="#modelo">Precios</a>
+      <a href="vision.html">Quiénes somos</a>
+      <a href="contacto.html" class="nav-cta">Solicitar demo</a>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div class="badge"><span class="badge-dot"></span><span class="mono" style="letter-spacing:.1em;">Etapa piloto · Argentina</span></div>
+      <h1>Industrial Intelligence. <span class="grad-text">Compliance Simplified.</span></h1>
+      <p class="lead">Galius ayuda a industrias a gestionar calidad, auditorías, cumplimiento normativo y optimización de procesos desde un único lugar — convirtiendo información dispersa en decisiones que reducen riesgo y mejoran productividad.</p>
+      <div class="hero-ctas">
+        <a href="contacto.html" class="btn-primary">Solicitar demo</a>
+        <a href="#producto" class="btn-ghost-dark">Conocer la plataforma</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEMA -->
+  <section class="problem" id="producto">
+    <div class="wrap">
+      <div class="problem-head reveal">
+        <div class="mono">El problema</div>
+        <h2>Tu información de planta está en todos lados, menos donde la necesitás.</h2>
+        <p>Calidad, producción, mantenimiento, seguridad y medio ambiente operan con herramientas que no se hablan entre sí.</p>
+      </div>
+      <div class="scatter reveal">
+        <span>Excel</span><span>Word</span><span>PDFs sueltos</span><span>Carpetas compartidas</span><span>Mails</span><span>Formularios en papel</span>
+      </div>
+      <div class="impact-grid reveal">
+        <div class="impact-card"><h4>Auditorías costosas</h4><p>Se arma todo a mano, cada vez, desde cero.</p></div>
+        <div class="impact-card"><h4>No conformidades recurrentes</h4><p>El mismo problema vuelve porque nadie conecta los datos.</p></div>
+        <div class="impact-card"><h4>Decisiones lentas</h4><p>La información existe, pero tarda semanas en juntarse.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MÓDULOS -->
+  <section class="modules">
+    <div class="wrap">
+      <div class="modules-head reveal">
+        <div class="mono">Qué hace Galius</div>
+        <h2>Cuatro áreas, un mismo sistema.</h2>
+        <p>Cada módulo se puede activar por separado — el valor crece cuando se conectan entre sí.</p>
+      </div>
+      <div class="mod-grid">
+        <div class="mod-card reveal">
+          <div class="mod-icon" style="background:rgba(32,99,247,.18);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#2063F7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="#2063F7" stroke-width="2"/></svg>
+          </div>
+          <h3>Compliance</h3>
+          <ul>
+            <li>ISO 9001 / 14001 / 45001</li>
+            <li>Gestión documental</li>
+            <li>Procedimientos y registros</li>
+            <li>Evidencias de auditoría</li>
+          </ul>
+        </div>
+        <div class="mod-card reveal">
+          <div class="mod-icon" style="background:rgba(24,166,255,.18);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12h16M4 6h16M4 18h10" stroke="#18A6FF" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Calidad</h3>
+          <ul>
+            <li>No conformidades</li>
+            <li>CAPA</li>
+            <li>Reclamos y hallazgos</li>
+            <li>Indicadores de calidad</li>
+          </ul>
+        </div>
+        <div class="mod-card reveal">
+          <div class="mod-icon" style="background:rgba(18,214,106,.18);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 17l6-6 4 4 8-8" stroke="#12D66A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Operaciones</h3>
+          <ul>
+            <li>Desvíos de proceso</li>
+            <li>Incidentes</li>
+            <li>Calidad de producción</li>
+            <li>Rendimiento operativo</li>
+          </ul>
+        </div>
+        <div class="mod-card reveal">
+          <div class="mod-icon" style="background:rgba(255,255,255,.1);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3v4M12 17v4M3 12h4M17 12h4" stroke="#fff" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="2"/></svg>
+          </div>
+          <h3>Inteligencia artificial</h3>
+          <ul>
+            <li>Detección de riesgos</li>
+            <li>Análisis de causa raíz</li>
+            <li>Identificación de patrones</li>
+            <li>Roadmap — Fase 4, aún no disponible</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVOLUCIÓN -->
+  <section class="evo" id="evolucion">
+    <div class="wrap">
+      <div class="evo-head reveal">
+        <div class="mono">La evolución estratégica</div>
+        <h2>De ordenar el papeleo a operar con inteligencia.</h2>
+      </div>
+      <div class="evo-grid">
+        <div class="evo-card now reveal">
+          <span class="mono">Fase 1 — Hoy</span>
+          <h4>Compliance Digital</h4>
+          <p>Eliminar papel, Excel y trabajo manual.</p>
+        </div>
+        <div class="evo-card reveal">
+          <span class="mono">Fase 2</span>
+          <h4>Industrial Intelligence</h4>
+          <p>Convertir datos en información.</p>
+          <div class="evo-ex">¿Qué área genera más no conformidades?</div>
+        </div>
+        <div class="evo-card reveal">
+          <span class="mono">Fase 3</span>
+          <h4>Industrial Optimization</h4>
+          <p>Detectar pérdidas ocultas.</p>
+          <div class="evo-ex">Sobreconsumo energético, scrap elevado.</div>
+        </div>
+        <div class="evo-card reveal">
+          <span class="mono">Fase 4</span>
+          <h4>Industrial AI Copilot</h4>
+          <p>La IA como asistente operativo de la planta.</p>
+          <div class="evo-ex">"Preparame para la auditoría externa."</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MERCADO -->
+  <section class="market">
+    <div class="wrap">
+      <div class="market-col reveal">
+        <div class="mono">Mercado inicial</div>
+        <h2>Industrias de proceso, 50 a 500 empleados.</h2>
+        <div class="market-tags">
+          <span>Alimenticias</span><span>Químicas</span><span>Farmacéuticas</span><span>Laboratorios</span><span>Metalúrgicas</span>
+        </div>
+      </div>
+      <div class="market-col reveal">
+        <div class="mono">Expansión</div>
+        <h2>El mismo motor, otros verticales.</h2>
+        <div class="market-tags">
+          <span>Minería</span><span>Oil &amp; Gas</span><span>Energía</span><span>Agroindustria</span><span>Manufactura avanzada</span>
+        </div>
+        <div class="market-size">LatAm como horizonte, Argentina como punto de partida.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VENTAJA -->
+  <section class="advantage reveal">
+    <div class="wrap">
+      <div class="mono">Ventaja competitiva</div>
+      <blockquote>La mayoría de los competidores entienden software. <b>Pocos entienden ingeniería de procesos, calidad, compliance y operaciones industriales.</b> Galius nace desde el conocimiento industrial y usa la tecnología como acelerador, no como excusa.</blockquote>
+    </div>
+  </section>
+
+  <!-- MODELO -->
+  <section class="pricing" id="modelo">
+    <div class="wrap">
+      <div class="pricing-head reveal">
+        <div class="mono">Modelo de negocio</div>
+        <h2>Implementación + suscripción, como cualquier plataforma seria.</h2>
+        <p>Rangos orientativos — el alcance final depende del tamaño de tu planta y los módulos que actives.</p>
+      </div>
+      <div class="price-grid">
+        <div class="price-card reveal">
+          <div class="mono">Implementación</div>
+          <div class="amount">USD 2.000 – 15.000</div>
+          <p>Relevamiento, carga de procesos existentes y puesta en marcha, según el tamaño de la organización.</p>
+        </div>
+        <div class="price-card reveal">
+          <div class="mono">Suscripción mensual</div>
+          <div class="amount">USD 300 – 5.000<span>/mes</span></div>
+          <p>Según cantidad de usuarios, plantas conectadas y módulos habilitados.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJETIVO LARGO PLAZO -->
+  <section class="longterm reveal">
+    <div class="wrap">
+      <div class="mono">Objetivo a largo plazo</div>
+      <h2>Así como Salesforce se convirtió en el estándar para ventas, <b>Galius aspira a ser el estándar para calidad, compliance y excelencia operacional en LatAm.</b></h2>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta reveal">
+    <div class="wrap">
+      <div class="mono">Empecemos</div>
+      <h2>¿Tu planta todavía gestiona calidad con Excel?</h2>
+      <div class="cta-ctas">
+        <a href="contacto.html" class="btn-dark">Solicitar demo</a>
+        <a href="vision.html" class="btn-outline">Quiénes somos</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <a href="#top" class="foot-brand">
+      <img src="assets/logo.svg" alt="Galius" width="22" height="22">
+      <span>galius</span>
+    </a>
+    <div class="foot-note">© 2026 Galius · Industrial Intelligence. Compliance Simplified.</div>
+  </div>
+</footer>
+
+<script>
+  const header = document.getElementById('site-header');
+  const onScroll = () => header.classList.toggle('solid', window.scrollY > 40);
+  onScroll();
+  window.addEventListener('scroll', onScroll);
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
