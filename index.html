@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Galius usa inteligencia artificial para optimizar procesos, logística y calidad en la industria, con el cumplimiento normativo resuelto.">
+<meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Galius — From complexity to clarity">
+<meta property="og:description" content="Optimización industrial con inteligencia artificial. Sin fricciones.">
+<meta property="og:locale" content="es_AR">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<title>Galius — From complexity to clarity</title>
+<style>
+:root{--bg:#000;--text:#F5F7FA;--dim:#9AA4B2;--faint:#6B7684;--glass:rgba(255,255,255,.04);--line:rgba(255,255,255,.09);--blue:#2063F7;--cyan:#18A6FF;--green:#12D66A;--grad:linear-gradient(100deg,#2063F7,#18A6FF 55%,#12D66A);--h:'Plus Jakarta Sans',Arial,sans-serif;--b:'Inter','Segoe UI',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--b);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.w{max-width:1180px;margin:0 auto;padding:0 32px}
+nav{position:sticky;top:0;z-index:10;background:rgba(0,0,0,.72);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav .w{display:flex;align-items:center;justify-content:space-between;height:70px}
+.brand{display:flex;align-items:center;gap:10px;font:800 19px var(--h)}
+.brand svg{width:28px;height:28px}
+.links{display:flex;gap:32px}
+.links a{font-size:14.5px;color:var(--dim);font-weight:500}.links a:hover{color:#fff}
+.btn{display:inline-block;background:#fff;color:#000;padding:11px 22px;border-radius:8px;font-weight:700;font-size:14.5px;border:0;cursor:pointer}
+.btn.lg{padding:15px 30px;font-size:15.5px}
+.btn.ghost{background:transparent;color:#fff;border:1px solid var(--line)}
+.hero{position:relative;overflow:hidden;text-align:center;padding:120px 0 40px}
+.hero:before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 50% 0,rgba(24,166,255,.22),transparent 70%),radial-gradient(ellipse 40% 40% at 85% 30%,rgba(18,214,106,.12),transparent 70%)}
+.hero .w{position:relative}
+h1{font:800 56px/1.1 var(--h);letter-spacing:-1.6px;max-width:860px;margin:0 auto}
+.g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{margin:24px auto 0;font-size:18px;color:var(--dim);max-width:600px}
+.cta{margin-top:34px;display:flex;gap:14px;justify-content:center}
+.net{position:relative;margin:64px auto 0;max-width:960px;overflow-x:auto}
+.net:before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 50% 50%,rgba(24,166,255,.16),transparent 70%);pointer-events:none}
+.net svg{position:relative;width:100%;min-width:640px;height:auto;display:block}
+.t text{font:700 16px 'Plus Jakarta Sans',Arial,sans-serif;fill:#F5F7FA}
+.s text{font:500 12px Inter,sans-serif;fill:#9AA4B2}
+.flow{stroke-dasharray:6 10;animation:fl 1.6s linear infinite}
+@keyframes fl{to{stroke-dashoffset:-32}}
+@media(prefers-reduced-motion:reduce){.flow{animation:none}}
+.feat{margin-top:48px;border:1px solid var(--line);border-radius:22px;background:var(--glass);padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:44px;box-shadow:0 0 100px rgba(24,166,255,.08)}
+.feat h3{font:700 24px/1.25 var(--h);margin-bottom:14px}.feat p{color:var(--dim);font-size:15px}
+.feat ol{list-style:none;counter-reset:n;display:flex;flex-direction:column;gap:18px}
+.feat li{counter-increment:n;padding-left:46px;position:relative}
+.feat li:before{content:counter(n);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;background:var(--grad);color:#000;font:800 14px/32px var(--h);text-align:center}
+.feat li b{display:block;font:700 15.5px var(--h)}.feat li span{font-size:13.5px;color:var(--dim)}
+@media(max-width:900px){.feat{grid-template-columns:1fr;padding:28px}}
+.ind{padding:56px 0 20px;text-align:center}
+.ind p{font-size:13.5px;color:var(--faint);margin-bottom:22px}
+.ind div{display:flex;flex-wrap:wrap;gap:10px 34px;justify-content:center;font:600 16px var(--h);color:#5b6572}
+section{padding:96px 0}
+.eye{font-size:13px;font-weight:700;color:var(--cyan);margin-bottom:14px}
+h2{font:700 34px/1.25 var(--h);letter-spacing:-.8px;max-width:680px}
+.c{text-align:center;margin-left:auto;margin-right:auto}
+.grid8{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:48px}
+.grid8 div{background:#050505;padding:30px 24px;transition:background .2s}.grid8 div:hover{background:#0b0e14}
+.grid8 b{display:block;font:700 16.5px var(--h);margin-bottom:8px}.grid8 p{font-size:13.5px;color:var(--dim)}
+.grid8 em{display:block;font:700 12px var(--h);color:var(--cyan);font-style:normal;margin-bottom:14px}
+.diff{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:48px}
+.diff div{border:1px solid var(--line);border-radius:18px;padding:28px;background:var(--glass)}
+.diff i{display:block;width:34px;height:3px;border-radius:2px;background:var(--grad);margin-bottom:20px}
+.diff b{display:block;font:700 17px var(--h);margin-bottom:8px}.diff p{font-size:14px;color:var(--dim)}
+.road{position:relative;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.road:before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 70% at 20% 100%,rgba(18,214,106,.14),transparent 70%)}
+.road .w{position:relative}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:48px}
+.steps div{border-top:2px solid var(--line);padding-top:18px}.steps div:first-child{border-top-color:var(--cyan)}
+.steps small{color:var(--faint);font-weight:700;font-size:12.5px}.steps b{display:block;font:700 16px var(--h);margin:8px 0 6px}.steps p{font-size:13.5px;color:var(--dim)}
+.final{text-align:center;position:relative;overflow:hidden}
+.final:before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 50% 100%,rgba(32,99,247,.22),transparent 70%)}
+.final .w{position:relative}
+.final h2{margin:0 auto}.final>.w>p{color:var(--dim);margin-top:14px}
+form{max-width:440px;margin:36px auto 0;display:flex;flex-direction:column;gap:12px}
+input,textarea{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:13px 16px;color:#fff;font:14.5px var(--b);resize:vertical}
+input::placeholder,textarea::placeholder{color:var(--faint)}input:focus,textarea:focus{outline:1px solid var(--cyan)}
+form .btn{margin-top:4px}
+#st{margin-top:16px;font-size:14px;min-height:20px}
+footer{border-top:1px solid var(--line);padding:56px 0 28px}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+.fg h4{font-size:13px;margin-bottom:16px}.fg a{display:block;color:var(--faint);font-size:13.5px;margin-bottom:10px}.fg a:hover{color:#fff}
+.fg p{color:var(--faint);font-size:13.5px;max-width:280px;margin-top:14px}
+.fb{margin-top:40px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:var(--faint);font-size:13px}
+@media(max-width:900px){h1{font-size:36px}h2{font-size:26px}.links{display:none}.grid8,.diff,.steps{grid-template-columns:1fr 1fr}.fg{grid-template-columns:1fr 1fr}.cta{flex-direction:column;align-items:center}}
+@media(max-width:520px){.grid8,.diff,.steps{grid-template-columns:1fr}.fb{flex-direction:column;gap:6px}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="lg" x1="185" y1="1487" x2="1795" y2="558" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2063f7"/><stop offset=".55" stop-color="#18a6ff"/><stop offset="1" stop-color="#12d66a"/></linearGradient><symbol id="logo" viewBox="0 0 2000 2000"><path fill="url(#lg)" d="M537.59,1054.56c-3.2-127.27,68.78-235.16,175.61-290.89,41.39-21.59,85.95-30.11,133.64-29.81l85.28.55,471.84-.37c104.22-10.86,176.19-112.26,154.8-218.72-15.78-76.71-79.55-144.99-159.79-144.91l-607.12.59c-120.51.12-238.39,48.87-332.52,122.2-91.65,71.4-160.9,163.54-202.59,272.88-35.37,92.76-51.06,187.07-44.18,287.56,6.12,89.38,33.63,174.18,73.38,254.15,60.28,121.27,160.07,212.36,277.96,272.62,76.86,39.29,161.87,57.32,249.01,57.41l601.49.64c48.9.05,84.52,41.73,83.85,90.12-.71,51.73-39.03,89.38-88.97,89.34l-598.9-.48c-201.07-.16-403.93-86.76-542.18-234.58-75.4-80.61-135.78-171.59-174.86-275.35-16.85-44.75-30.68-87.6-40.45-133.74-50.84-240.11,8.78-485.49,153.74-678.79,96.78-129.06,228.2-221.38,378.49-274.04,70.28-24.63,143.88-37.98,219.99-38.09l580.52-.79c55.56-.08,106.67,12.78,153.62,39.79,103.4,59.47,175.57,160.15,190.14,282.65,11.05,92.95-9.91,180.92-63.73,257.84-56.87,81.29-150.36,143.5-250.83,143.88l-587.19,2.27c-78.27,7.12-134.1,83.19-121.61,161.82,12.32,68.37,65.49,115.43,133.3,115.46l893.14.33-85.22-89.23c-24.65-25.81-21.75-72.27,4.96-95.5,30.95-26.92,73.04-15.69,98.53,12.93l25.33,28.43,171.63,179.37c27.46,28.7,19.73,79.51-6.55,106.37l-205.36,209.91c-24.08,24.62-67.24,18.73-88.56-5.55-25.32-28.85-19.24-69.62,5.84-95.91l72.79-76.31c.97-1.02,3.76-2.65,3.23-3.63-.66-1.21-2.43-2.6-5.96-2.6l-800.96-.38-88.63-.38c-53.28-.23-104.94-14.58-148.99-43.41-86.53-56.62-144.26-146.98-146.99-255.65Z"/></symbol></defs></svg>
+
+<nav><div class="w">
+  <a class="brand" href="#"><svg><use href="#logo"/></svg>galius</a>
+  <div class="links"><a href="#plataforma">Plataforma</a><a href="#por-que">Por qué Galius</a><a href="#empezar">Cómo empezamos</a></div>
+  <a class="btn" href="#contacto">Contáctanos</a>
+</div></nav>
+
+<header class="hero"><div class="w">
+  <h1>Optimización industrial con <span class="g">inteligencia artificial</span>. Sin fricciones.</h1>
+  <p class="sub">Galius analiza los datos de tu planta para encontrar pérdidas, anticipar desvíos y priorizar mejoras en procesos, logística y calidad, con el cumplimiento normativo ya resuelto.</p>
+  <div class="cta"><a class="btn lg" href="#contacto">Contáctanos</a><a class="btn lg ghost" href="#plataforma">Ver cómo funciona</a></div>
+  <div class="net">
+    <svg viewBox="0 0 960 380" role="img" aria-label="Galius convierte los datos de tu operación en mejoras y evidencia de cumplimiento">
+      <defs><linearGradient id="lk" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="960" y2="0"><stop offset="0" stop-color="#2063F7"/><stop offset=".5" stop-color="#18A6FF"/><stop offset="1" stop-color="#12D66A"/></linearGradient></defs>
+      <circle cx="480" cy="190" r="150" fill="none" stroke="rgba(255,255,255,.04)"/>
+      <circle cx="480" cy="190" r="104" fill="none" stroke="rgba(255,255,255,.07)"/>
+      <g fill="none" stroke="url(#lk)" stroke-width="2">
+        <path opacity=".3" d="M230 82C340 82 360 190 440 190M230 298C340 298 360 190 440 190M730 82C620 82 600 190 520 190M730 298C620 298 600 190 520 190"/>
+        <path class="flow" d="M230 82C340 82 360 190 440 190M230 298C340 298 360 190 440 190M730 82C620 82 600 190 520 190M730 298C620 298 600 190 520 190"/>
+      </g>
+      <circle cx="480" cy="190" r="62" fill="#07090d" stroke="rgba(255,255,255,.16)"/>
+      <use href="#logo" x="444" y="154" width="72" height="72"/>
+      <g fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.13)">
+        <rect x="40" y="50" width="190" height="64" rx="14"/><rect x="40" y="266" width="190" height="64" rx="14"/>
+        <rect x="730" y="50" width="190" height="64" rx="14"/><rect x="730" y="266" width="190" height="64" rx="14"/>
+      </g>
+      <g class="t"><text x="62" y="78">Tus datos</text><text x="62" y="294" >Tu operación</text><text x="752" y="78">Qué mejorar</text><text x="752" y="294">Qué cumplir</text></g>
+      <g class="s"><text x="62" y="98">Excel, registros, PDFs</text><text x="62" y="314">Procesos y logística</text><text x="752" y="98">Causas y prioridades</text><text x="752" y="314">Evidencia y normas</text></g>
+    </svg>
+  </div>
+</div></header>
+
+<div class="ind"><div class="w"><p>Una plataforma para toda la industria de proceso</p>
+  <div><span>Alimenticia</span><span>Química</span><span>Farmacéutica</span><span>Laboratorios</span><span>Metalúrgica</span><span>Minería</span><span>Energía</span></div>
+</div></div>
+
+<section id="plataforma"><div class="w">
+  <div class="eye">Inteligencia artificial aplicada</div>
+  <h2>Tus datos de planta, trabajando para vos.</h2>
+  <div class="feat">
+    <div><h3>Detector de pérdidas recurrentes</h3><p>Subís tus registros de desvíos, no conformidades o paradas, aunque estén en Excel. Galius agrupa los problemas que se repiten, propone causas probables y te dice cuál atacar primero.</p></div>
+    <ol>
+      <li><b>Conectás tus datos</b><span>Excel, PDFs y registros que ya tenés.</span></li>
+      <li><b>La IA encuentra patrones</b><span>Agrupa repeticiones y propone causas, con el registro de origen a la vista.</span></li>
+      <li><b>Decidís con prioridades</b><span>Una lista de mejoras ordenada por impacto, lista para ejecutar.</span></li>
+    </ol>
+  </div>
+  <div class="grid8">
+    <div><em>01</em><b>Causa raíz asistida</b><p>Hipótesis de causa para cada desvío que se repite.</p></div>
+    <div><em>02</em><b>Alertas tempranas</b><p>Señales a tiempo, antes de que se vuelvan hallazgos.</p></div>
+    <div><em>03</em><b>Optimización de procesos</b><p>Cuellos de botella y pérdidas ocultas en el flujo.</p></div>
+    <div><em>04</em><b>Logística</b><p>Trazabilidad y rendimiento de punta a punta de la cadena.</p></div>
+    <div><em>05</em><b>Calidad</b><p>No conformidades, CAPA e indicadores en un solo lugar.</p></div>
+    <div><em>06</em><b>Compliance</b><p>ISO 9001, 14001, 45001, 22000 y normas sectoriales.</p></div>
+    <div><em>07</em><b>Auditorías</b><p>Evidencia siempre lista, sin armarla la noche anterior.</p></div>
+    <div><em>08</em><b>Indicadores</b><p>Preguntale a tus datos en lenguaje natural.</p></div>
+  </div>
+</div></section>
+
+<section id="por-que" style="padding-top:0"><div class="w">
+  <div class="eye">Por qué Galius</div>
+  <h2>Ingeniería de procesos más inteligencia artificial.</h2>
+  <div class="diff">
+    <div><i></i><b>Arrancás con lo que ya tenés</b><p>No hace falta cambiar sistemas: empezamos con tus Excel y registros.</p></div>
+    <div><i></i><b>Ingeniería, no solo software</b><p>Entendemos cómo funciona una planta y su cadena logística.</p></div>
+    <div><i></i><b>Resultados que se miden</b><p>Cada mejora se compara con el antes: tiempos, desvíos y costos.</p></div>
+    <div><i></i><b>Cumplimiento incluido</b><p>La evidencia normativa se genera mientras optimizás.</p></div>
+  </div>
+</div></section>
+
+<section class="road" id="empezar"><div class="w">
+  <div class="eye">Cómo empezamos</div>
+  <h2>De la primera conversación a la mejora continua.</h2>
+  <div class="steps">
+    <div><small>01</small><b>Diagnóstico</b><p>Una charla y una muestra de tus datos para elegir el primer problema que vale la pena resolver.</p></div>
+    <div><small>02</small><b>Puesta en marcha</b><p>Cargamos tus procesos en Galius y conectamos tus registros.</p></div>
+    <div><small>03</small><b>Primeras mejoras</b><p>La IA prioriza, vos ejecutás y medimos el antes y el después.</p></div>
+    <div><small>04</small><b>Mejora continua</b><p>El sistema aprende de tu operación y suma nuevas áreas.</p></div>
+  </div>
+</div></section>
+
+<section class="final" id="contacto"><div class="w">
+  <div class="eye">Hablemos</div>
+  <h2>Construyamos el sistema que tu empresa necesita.</h2>
+  <p>Dejanos tus datos y te contactamos para agendar una llamada, sin compromiso.</p>
+  <form id="f">
+    <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+    <input type="text" name="name" placeholder="Nombre" autocomplete="name" aria-label="Nombre" required>
+    <input type="email" name="email" placeholder="Email" autocomplete="email" aria-label="Email" required>
+    <input type="text" name="company" placeholder="Empresa" autocomplete="organization" aria-label="Empresa">
+    <textarea name="message" rows="3" maxlength="3000" placeholder="Contanos brevemente tu caso" aria-label="Mensaje" required></textarea>
+    <button class="btn lg" id="sb" type="submit">Enviar</button>
+  </form>
+  <p id="st"></p>
+</div></section>
+
+<footer><div class="w">
+  <div class="fg">
+    <div><a class="brand" href="#"><svg><use href="#logo"/></svg>galius</a><p>Optimización inteligente de procesos, logística, calidad y cumplimiento normativo.</p></div>
+    <div><h4>Plataforma</h4><a href="#plataforma">Aplicaciones</a><a href="#por-que">Por qué Galius</a><a href="#empezar">Cómo empezamos</a></div>
+    <div><h4>Empresa</h4><a href="#contacto">Contacto</a></div>
+    <div><h4>Seguinos</h4><a href="https://www.linkedin.com/company/galius-argentina" rel="noopener">LinkedIn</a></div>
+  </div>
+  <div class="fb"><span>© 2026 Galius Argentina</span><span>From complexity to clarity.</span></div>
+</div></footer>
+
+<script>
+const f=document.getElementById('f'),st=document.getElementById('st'),sb=document.getElementById('sb');
+f.addEventListener('submit',async e=>{e.preventDefault();sb.disabled=true;sb.textContent='Enviando...';
+try{const r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.fromEntries(new FormData(f)))});
+const d=await r.json();if(r.ok){st.textContent='¡Gracias! Te vamos a contactar a la brevedad.';st.style.color='var(--green)';f.reset()}
+else{st.textContent=d.error||'Hubo un problema. Probá de nuevo.';st.style.color='#ff6b6b'}}
+catch(_){st.textContent='Hubo un problema de conexión. Probá de nuevo.';st.style.color='#ff6b6b'}
+sb.disabled=false;sb.textContent='Enviar'});
+</script>
+</body>
+</html>
